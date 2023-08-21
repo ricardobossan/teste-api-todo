@@ -30,6 +30,21 @@ namespace Kobold.TodoApp.Api.Controllers
             return _todoService.Get();
         }
 
+        [HttpGet("collections")]
+        public IEnumerable<TodoCollection> GetTodoCollections()
+        {
+            var doneTodos = _todoService.Get().Where(todo => todo.Done);
+            var notDoneTodos = _todoService.Get().Where(todo => !todo.Done);
+
+            var collections = new List<TodoCollection>
+            {
+                new TodoCollection { CollectionName = "Done", Todos = doneTodos.ToList() },
+                new TodoCollection { CollectionName = "NotDone", Todos = notDoneTodos.ToList() }
+            };
+
+            return collections;
+        }
+
         [HttpPost]
         public Todo Create([FromBody] TodoViewModel todovm)
         {

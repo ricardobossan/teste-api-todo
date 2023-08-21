@@ -12,7 +12,7 @@
 
 ##### Necessários
 
-- ORM
+- ~~ORM~~
 - API
 
 ##### Opcionais
@@ -34,6 +34,9 @@
 - Tratamento de mensagens de erro para usuário;
 
 ### Implementação (Control)
+
+1. ORM
+2. API agrupando por coleções
 
 ## Introdução
 

@@ -36,7 +36,12 @@
 ### Implementação (Control)
 
 1. ORM
-2. API agrupando por coleções
+2. API agrupando por coleções:
+    - É agregado de Todos. Ficará no mesmo controlador.
+3. Trata erros 
+4. banco no docker 
+5. teste unitário 
+6. view com viewmodel
 
 ## Introdução
 

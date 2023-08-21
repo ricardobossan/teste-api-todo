@@ -25,48 +25,116 @@ namespace Kobold.TodoApp.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Todo> Get()
+        public ActionResult<IEnumerable<Todo>> Get()
         {
-            return _todoService.Get();
+            try
+            {
+                IEnumerable<Todo> todos = _todoService.Get();
+
+                if (todos == null) return NotFound("Não encontrado");
+
+                if (!todos.Any()) return StatusCode(204);
+
+                return Ok(todos);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Ocorreu um erro ao processar a requisição");
+                return StatusCode(500, "Erro no servidor");
+            }
         }
 
         [HttpGet("collections")]
-        public IEnumerable<TodoCollection> GetTodoCollections()
+        public ActionResult<IEnumerable<TodoCollection>> GetTodoCollections()
         {
-            var doneTodos = _todoService.Get().Where(todo => todo.Done);
-            var notDoneTodos = _todoService.Get().Where(todo => !todo.Done);
-
-            var collections = new List<TodoCollection>
+            try
             {
-                new TodoCollection { CollectionName = "Done", Todos = doneTodos.ToList() },
-                new TodoCollection { CollectionName = "NotDone", Todos = notDoneTodos.ToList() }
-            };
+                var doneTodos = _todoService.Get().Where(todo => todo.Done);
+                var notDoneTodos = _todoService.Get().Where(todo => !todo.Done);
 
-            return collections;
+                var collections = new List<TodoCollection>();
+
+                if (doneTodos.Any()) collections.Add(new TodoCollection { CollectionName = "Done", Todos = doneTodos.ToList() });
+                if (notDoneTodos.Any()) collections.Add(new TodoCollection { CollectionName = "NotDone", Todos = notDoneTodos.ToList() });
+
+                if (collections == null) return NotFound("Não encontrado");
+
+                if (!collections.Any()) return StatusCode(204);
+
+                return Ok(collections);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Ocorreu um erro ao processar a requisição");
+                return StatusCode(500, "Erro no servidor");
+            }
         }
 
         [HttpPost]
-        public Todo Create([FromBody] TodoViewModel todovm)
+        public ActionResult<Todo> Create([FromBody] TodoViewModel todovm)
         {
-            return _todoService.Create(todovm);
+            try
+            {
+                Todo todo = _todoService.Create(todovm);
+                return Ok(todo);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Erro ao criar tarefa");
+                return StatusCode(500, "Erro ao criar tarefa");
+            }
         }
 
         [HttpPut("{id}")]
-        public Todo Update([FromRoute] int id, [FromBody] TodoViewModel todovm)
+        public ActionResult<Todo> Update([FromRoute] int id, [FromBody] TodoViewModel todovm)
         {
-            return _todoService.Update(id, todovm);
+            try
+            {
+                Todo todo = _todoService.Update(id, todovm);
+                if (todo == null) return NotFound("Tarefa não encontrada");
+                return Ok(todo);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Ocorreu erro ao atualizar tarefa");
+                return StatusCode(500, "Ocorreu erro ao atualizar tarefa");
+            }
+
         }
 
         [HttpGet("{id}")]
-        public Todo Get([FromRoute] int id)
+        public ActionResult<Todo> Get([FromRoute] int id)
         {
-            return _todoService.Get(id);
+            try
+            {
+                Todo todo = _todoService.Get(id);
+                if (todo == null) return NotFound("Tarefa não encontrada");
+
+
+                return Ok(todo);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Ocorreu erro ao consultar tarefa");
+                return StatusCode(500, "Ocorreu erro ao consultar tarefa");
+            }
         }
 
         [HttpDelete("{id}")]
-        public void Remove([FromRoute] int id)
+        public IActionResult Remove([FromRoute] int id)
         {
-            _todoService.Remove(id);
+            try
+            {
+                var removido = _todoService.Remove(id);
+                if (!removido) return NotFound("Não encontrado");
+
+            return NoContent();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Erro ao remover tarefa");
+                return StatusCode(500, "Erro ao remover tarefa");
+            }
         }
 
     }

@@ -14,4 +14,4 @@ services:
       MYSQL_ROOT_PASSWORD: supersecreto
       MYSQL_DATABASE: todos
     ports:
-      - "3306:3306" # FIX: Tive que parar o mysqld.exe. Independente da porta que eu coloco aqui, ainda fica como 3306 dentro do container.
+      - "3307:3306" # FIX: Tive que parar o mysqld.exe. Independente da porta que eu coloco aqui, ainda fica como 3306 dentro do container.

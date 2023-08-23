@@ -13,7 +13,7 @@
 ##### Necessários
 
 - ~~ORM~~
-- API
+- ~~API~~
 
 ##### Opcionais
 
@@ -39,7 +39,9 @@
 2. API agrupando por coleções:
     - É agregado de Todos. Ficará no mesmo controlador.
 3. Trata erros 
-4. banco no docker 
+4. banco no docker (branch: docker)
+    - Tive que parar o mysqld.exe. Independente da porta que eu coloco aqui, ainda fica como 3306 dentro do container.
+    - Mesmo fazendo seed, dá erro `Table 'todos.Todos' doesn't exist`
 5. teste unitário 
 6. view com viewmodel
 

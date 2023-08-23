@@ -3,14 +3,16 @@ using System;
 using Kobold.TodoApp.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kobold.TodoApp.Api.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    partial class TodoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230823033847_SeedTodo")]
+    partial class SeedTodo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,29 +41,29 @@ namespace Kobold.TodoApp.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            DataCriacao = new DateTime(2023, 8, 23, 0, 46, 3, 993, DateTimeKind.Local).AddTicks(5678),
+                            Id = -1,
+                            DataCriacao = new DateTime(2023, 8, 23, 0, 38, 47, 130, DateTimeKind.Local).AddTicks(7688),
                             Description = "Procurar receita",
                             Done = true
                         },
                         new
                         {
-                            Id = 2,
-                            DataCriacao = new DateTime(2023, 8, 23, 0, 46, 3, 993, DateTimeKind.Local).AddTicks(7977),
+                            Id = -2,
+                            DataCriacao = new DateTime(2023, 8, 23, 0, 38, 47, 130, DateTimeKind.Local).AddTicks(9912),
                             Description = "Comprar ingredientes",
                             Done = true
                         },
                         new
                         {
-                            Id = 3,
-                            DataCriacao = new DateTime(2023, 8, 23, 0, 46, 3, 993, DateTimeKind.Local).AddTicks(8078),
+                            Id = -3,
+                            DataCriacao = new DateTime(2023, 8, 23, 0, 38, 47, 131, DateTimeKind.Local).AddTicks(11),
                             Description = "Cozinhar receita",
                             Done = false
                         },
                         new
                         {
-                            Id = 4,
-                            DataCriacao = new DateTime(2023, 8, 23, 0, 46, 3, 993, DateTimeKind.Local).AddTicks(8128),
+                            Id = -4,
+                            DataCriacao = new DateTime(2023, 8, 23, 0, 38, 47, 131, DateTimeKind.Local).AddTicks(63),
                             Description = "Servir mesa",
                             Done = false
                         });

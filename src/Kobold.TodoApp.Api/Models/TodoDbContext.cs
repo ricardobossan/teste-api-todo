@@ -9,6 +9,13 @@ namespace Kobold.TodoApp.Api.Models
         }
 
         public DbSet<Todo> Todos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            TodoSeed.Seed(modelBuilder);
+        }
     }
 }
 

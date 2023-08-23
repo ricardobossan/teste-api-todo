@@ -32,7 +32,7 @@ namespace Kobold.TodoApp.Api
             services
               .AddDbContext<TodoDbContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("MySqlConnection"),
-                 mysqlOptions => mysqlOptions.ServerVersion(new Version(5, 7, 43), ServerType.MySql)
+                 mysqlOptions => mysqlOptions.ServerVersion(new Version(5, 7, 43), ServerType.MySql).EnableRetryOnFailure()
              ));
 
             services.AddControllers( options =>

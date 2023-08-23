@@ -99,7 +99,6 @@ namespace Kobold.TodoApp.Api.Controllers
                 _logger.LogError(e, "Ocorreu erro ao atualizar tarefa");
                 return StatusCode(500, "Ocorreu erro ao atualizar tarefa");
             }
-
         }
 
         [HttpGet("{id}")]

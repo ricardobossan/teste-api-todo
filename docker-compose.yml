@@ -1,17 +1,17 @@
-version: '3.8'
+version: '3.4'
+
 services:
-  webapp:
+  kobold.todoapp.api:
+    image: ${DOCKER_REGISTRY-}koboldtodoappapi
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:80"
+      dockerfile: src/Kobold.TodoApp.Api/Dockerfile
     depends_on:
-      - database
-  database:
-    image: mysql:5.7
+      - db
+  db:
+    image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_ROOT_PASSWORD: supersecreto
       MYSQL_DATABASE: todos
     ports:
-      - "3307:3306"
+      - "3306:3306" # FIX: Tive que parar o mysqld.exe. Independente da porta que eu coloco aqui, ainda fica como 3306 dentro do container.

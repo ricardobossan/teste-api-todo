@@ -10,24 +10,36 @@ Devem estar instalados:
 
 - [Docker](https://www.docker.com/)
 - [Postman](https://postman.com/)
+- [Visual Studio 2019+ (Dá suporte a docker-compose)](https://visualstudio.microsoft.com/pt-br/)
 
 #### Passo 2. Executar docker-compose
 
-##### Opção 1: Linha de comando
+##### Opção 1: Visual Studio (Recomendada)
+
+Esta opção é recomendada porque resolve geração de certificados.
+
+Simplesmente abra o projeto no Visual Studio e aperte `F5`, responda que sim para as opções de gerar certificados e aguardo a janela do navegador aparecer.
+
+##### Opção 2: Linha de comando
 
 ```bash 
 cd $RAIZ_DO_PROJETO/src/Kobold.TodoApp.Api
 docker-compose up
 ```
 
-##### Opção 2: Visual Studio
-
-Simplesmente abra o projeto no Visual Studio e aperte `F5`.
-
 #### Passo 3. Faça requisições com Postman
 
-1. Abra o postman;
-2. Faça requisições para a porta que aparecer na janela de navegador que foi aberta no [Pass 2](#passo-2-executar-docker-compose), e.g., `https://localhost:NUMERO_DA_PORTA/`
+1. Descubra o endpoint da requisição:
+  - **Se executou pelo Visual Studio (opção 1)**, Copie o endereço do navegador, sem o trecho final (todoapp), e.g., `https://localhost:NUMERO_DA_PORTA/`
+  - **Se executou pela linha de comando**, no terminal, digite `docker-ps` e veja o número da porta que aparece ao lado do container `teste-api-todo`, e.g.:
+abaixo é `59115`:
+
+  ```markdown
+  faf7aa23c9e8   koboldtodoappapi   "dotnet Kobold.TodoA…"   13 minutes ago   Up 13 minutes   0.0.0.0:59116->80/tcp, 0.0.0.0:**59115**->443/tcp   teste-api-todo-kobold.todoapp.api-1`
+  ```
+
+2. Abra o postman;
+3. Faça requisições para localhost, na porta descoberta no passo2, item 1 (anterior a este), e.g., `https://localhost:NUMERO_DA_PORTA/`, acrescentando ao final `todo`, para consultar todos sem agrupamento, ou `todo/collections`, para consultar por agrupamentos.
 
 ### Desenvolvimento
 

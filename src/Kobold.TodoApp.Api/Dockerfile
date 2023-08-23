@@ -19,6 +19,7 @@ RUN dotnet publish "Kobold.TodoApp.Api.csproj" -c Release -o /app/publish
 FROM publish AS ef
 RUN dotnet new tool-manifest
 RUN dotnet tool install dotnet-ef
+#RUN dotnet ef migrations add InitialMigration
 RUN dotnet ef database update # FIX: Mesmo fazendo seed, dá erro `Table 'todos.Todos' doesn't exist`
 
 FROM base AS final

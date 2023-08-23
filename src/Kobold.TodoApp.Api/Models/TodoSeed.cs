@@ -10,28 +10,28 @@ namespace Kobold.TodoApp.Api.Models
             modelBuilder.Entity<Todo>().HasData(
                 new Todo
                 {
-                    Id = 1,
+                    Id = -1,
                     DataCriacao = DateTime.Now,
                     Done = true,
                     Description = "Procurar receita"
                 },
                 new Todo
                 {
-                    Id = 2,
+                    Id = -2,
                     DataCriacao = DateTime.Now,
                     Done = true,
                     Description = "Comprar ingredientes"
                 },
                 new Todo
                 {
-                    Id = 3,
+                    Id = -3,
                     DataCriacao = DateTime.Now,
                     Done = false,
                     Description = "Cozinhar receita"
                 },
                 new Todo
                 {
-                    Id = 4,
+                    Id = -4,
                     DataCriacao = DateTime.Now,
                     Done = false,
                     Description = "Servir mesa"

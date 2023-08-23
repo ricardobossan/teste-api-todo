@@ -35,15 +35,21 @@ namespace Kobold.TodoApp.Api
                  mysqlOptions => mysqlOptions.ServerVersion(new Version(5, 7, 43), ServerType.MySql).EnableRetryOnFailure()
              ));
 
-            services.AddControllers( options =>
-            {
-                options.Filters.Add(typeof(GlobalException));
-            });
+            services.AddControllers(options =>
+           {
+               options.Filters.Add(typeof(GlobalException));
+           });
             services.AddScoped<TodoService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<TodoDbContext>();
+                context.Database.Migrate();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
